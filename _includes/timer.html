@@ -1,0 +1,52 @@
+
+      <!-- Right: Countdown Timer -->
+      <div class="md:w-1/2 md:min-h-screen h-96 bg-gradient-to-b from-techtroop400 to-techtroop600 text-white flex flex-col-auto justify-center items-center lg:p-10 p-2 space-y-8">
+           
+        <div class="gap-10 w-full flex flex-col justify-center items-center">
+        
+        <div class="grid grid-cols-4 gap-4 text-center py-0 md:w-full">
+          <div class="bg-white bg-opacity-10 p-4 md:p-6 rounded-md">
+            <div id="days" class="text-3xl md:text-2xl xl:text-5xl font-bold">00</div>
+            <div class="text-sm md:text-base mt-1">Days</div>
+          </div>
+          <div class="bg-white bg-opacity-10 p-4 md:p-6 rounded-md">
+            <div id="hours" class="text-3xl md:text-2xl xl:text-5xl font-bold">00</div>
+            <div class="text-sm md:text-base mt-1">Hours</div>
+          </div>
+          <div class="bg-white bg-opacity-10 p-4 md:p-6 rounded-md">
+            <div id="minutes" class="text-3xl md:text-2xl xl:text-5xl font-bold">00</div>
+            <div class="text-sm md:text-base mt-1">Mins</div>
+          </div>
+          <div class="bg-white bg-opacity-10 p-4 md:p-6 rounded-md">
+            <div id="seconds" class="text-3xl md:text-2xl xl:text-5xl font-bold">00</div>
+            <div class="text-sm md:text-base mt-1">Secs</div>
+          </div>
+        </div>
+        <div>
+		<p class="text-center text-base font-semibold leading-relaxed text-lg">Launch Date: June 1, 2027</p>
+		</div>
+
+		</div>
+
+
+      </div>
+
+ <!-- Countdown Script -->
+    <script>
+      const end = new Date("Jun 1, 2027 00:00:00").getTime();
+      setInterval(() => {
+        const now = new Date().getTime();
+        let distance = end - now;
+        if (distance < 0) distance = 0;
+
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(d).padStart(2, '0');
+        document.getElementById("hours").innerText = String(h).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(m).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(s).padStart(2, '0');
+      }, 1000);
+    </script>
