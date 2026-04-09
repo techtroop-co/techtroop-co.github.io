@@ -4,7 +4,7 @@ task :pingomatic do
   begin
     require 'xmlrpc/client'
     puts '* Pinging ping-o-matic'
-    XMLRPC::Client.new('rpc.pingomatic.com', '/').call('weblogUpdates.extendedPing', 'techtroop.co' , 'https://techtroop.co', 'http://techtroop.co/atom.xml')
+    XMLRPC::Client.new('rpc.pingomatic.com', '/').call('weblogUpdates.extendedPing', 'techtroop.co' , 'https://techtroop.co', 'http://techtroop.co/sitemap.xml')
   rescue LoadError
     puts '! Could not ping ping-o-matic, because XMLRPC::Client could not be found.'
   end
@@ -43,7 +43,7 @@ task :pingpubsubhubbub do
     require 'cgi'
     require 'net/http'
     puts '* Pinging pubsubhubbub server'
-    data = 'hub.mode=publish&hub.url=' + CGI::escape("https://techtroop.co/atom.xml")
+    data = 'hub.mode=publish&hub.url=' + CGI::escape("https://techtroop.co/sitemap.xml")
     http = Net::HTTP.new('pubsubhubbub.appspot.com', 80)
     resp, data = http.post('http://pubsubhubbub.appspot.com/publish',
                            data,
