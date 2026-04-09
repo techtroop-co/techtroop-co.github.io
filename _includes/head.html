@@ -1,15 +1,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="TechTroop">
+<meta name="description" content="{{ page.description | default: site.description | escape }}">
 
 <link rel="icon" type="image/png" href="https://techtroop.co/assets/images/favicon-48x48.png" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="https://techtroop.co/assets/images/favicon.svg">
 <link rel="shortcut icon" href="https://techtroop.co/assets/images/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="https://techtroop.co/assets/images/apple-touch-icon.png">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
 
 
-<title>TechTroop</title>
+<title>{% if page.url == "/" %}{{ site.title }}{% else %}{{ page.title | default: site.title }} | {{ site.title }}{% endif %}</title>
+
+{% unless page.url == "/" %}
+{% assign breadcrumb_label = page.breadcrumb | default: page.title | default: site.title %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ breadcrumb_label | escape }}",
+      "item": "{{ page.url | absolute_url }}"
+    }
+  ]
+}
+</script>
+{% endunless %}
 <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
