@@ -32,7 +32,22 @@ production: true
 # Build settings
 theme: null
 plugins:
-  - jekyll-feed
+  - jekyll-seo-tag
+  
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+      image: /assets/images/og_image.png
+  - scope:
+      path: ""
+      type: posts
+    values:
+      permalink: "/blog/:title/"
+
+google_analytics: null
 
 exclude:
   - .sass-cache/

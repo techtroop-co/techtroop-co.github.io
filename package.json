@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "autoprefixer": "^1",
-    "cssnano": "^1",
-    "tailwindcss": "^1"
-  }
-}
