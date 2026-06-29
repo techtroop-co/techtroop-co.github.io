@@ -1,0 +1,71 @@
+<div id="cookie-notice" class="fixed inset-x-0 bottom-0 z-50 hidden px-4 pb-4 sm:pb-6">
+  <div class="mx-auto flex max-w-4xl flex-col gap-4 rounded-2xl border border-white/50 bg-white/80 p-5 text-techtroop950 shadow-2xl shadow-techtroop950/20 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+    <div class="space-y-1">
+      <p class="text-sm font-semibold uppercase tracking-wide text-techtroop700">Cookie preferences</p>
+      <p class="text-sm leading-6 text-techtroop900">
+        We use cookies and similar technologies to keep this site working and improve the experience. Review our
+        <a href="/privacy/" class="font-semibold underline underline-offset-4 hover:text-techtroop700">Privacy Policy</a>
+        and
+        <a href="/cookie/" class="font-semibold underline underline-offset-4 hover:text-techtroop700">Cookie Policy</a>.
+      </p>
+    </div>
+    <div class="flex shrink-0 gap-3">
+      <button type="button" data-cookie-choice="rejected" class="rounded-lg border border-techtroop300 bg-white/70 px-4 py-2 text-sm font-semibold text-techtroop800 shadow-sm transition hover:border-techtroop600 hover:text-techtroop950">
+        Reject
+      </button>
+      <button type="button" data-cookie-choice="accepted" class="rounded-lg bg-techtroop800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-techtroop900">
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var storageKey = 'techtroop_cookie_notice';
+    var notice = document.getElementById('cookie-notice');
+    var links = document.querySelectorAll('[data-cookie-preferences]');
+
+    function hasStoredChoice() {
+      try {
+        return Boolean(localStorage.getItem(storageKey));
+      } catch (error) {
+        return document.cookie.indexOf(storageKey + '=') !== -1;
+      }
+    }
+
+    function showNotice(event) {
+      if (event) {
+        event.preventDefault();
+      }
+      notice.classList.remove('hidden');
+    }
+
+    function saveChoice(choice) {
+      try {
+        localStorage.setItem(storageKey, choice);
+      } catch (error) {
+        document.cookie = storageKey + '=' + choice + '; path=/; max-age=31536000; SameSite=Lax';
+      }
+      notice.classList.add('hidden');
+    }
+
+    if (!notice) {
+      return;
+    }
+
+    if (!hasStoredChoice()) {
+      showNotice();
+    }
+
+    notice.querySelectorAll('[data-cookie-choice]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        saveChoice(button.getAttribute('data-cookie-choice'));
+      });
+    });
+
+    links.forEach(function (link) {
+      link.addEventListener('click', showNotice);
+    });
+  })();
+</script>
